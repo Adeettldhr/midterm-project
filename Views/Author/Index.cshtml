@@ -8,7 +8,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Birth Date</th>
+
             <th></th>
         </tr>
     </thead>
@@ -16,7 +16,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>@item.Name</td>
-            <td>@item.BirthDate.ToShortDateString()</td>
+
             <td>
                 <a asp-action="Details" asp-route-id="@item.AuthorId">Details</a> |
                 <a asp-action="Edit" asp-route-id="@item.AuthorId">Edit</a> |

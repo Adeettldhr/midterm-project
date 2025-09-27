@@ -1,4 +1,4 @@
-namespace LibMang.Models;
+namespace midterm_project.Models;
 
 public class ErrorViewModel
 {

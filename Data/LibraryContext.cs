@@ -8,7 +8,6 @@ public class LibraryContext : DbContext
     public DbSet<Author> Authors { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<LibraryBranch> LibraryBranches { get; set; }
-    public DbSet<BookCopy> BookCopies { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

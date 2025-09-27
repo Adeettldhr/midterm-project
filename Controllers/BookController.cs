@@ -21,8 +21,6 @@ public class BookController : Controller
     {
         if (id == null) return NotFound();
         var book = await _context.Books.Include(b => b.Author)
-                                       .Include(b => b.Copies)
-                                       .ThenInclude(c => c.LibraryBranch)
                                        .FirstOrDefaultAsync(m => m.BookId == id);
         if (book == null) return NotFound();
         return View(book);

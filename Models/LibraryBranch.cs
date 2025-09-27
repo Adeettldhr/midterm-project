@@ -10,5 +10,5 @@ public class LibraryBranch
 
     public string Address { get; set; }
 
-    public ICollection<BookCopy> BookCopies { get; set; }
+
 }

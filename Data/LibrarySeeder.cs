@@ -13,27 +13,27 @@ public static class LibrarySeeder
 
         // 20 Authors (real author names)
         var authors = new List<Author> {
-            new Author { Name = "George Orwell", Bio = "English novelist and essayist" },
-            new Author { Name = "Jane Austen"},
-            new Author { Name = "J.K. Rowling"},
-            new Author { Name = "J.R.R. Tolkien"},
-            new Author { Name = "Harper Lee"},
-            new Author { Name = "F. Scott Fitzgerald"},
-            new Author { Name = "Ernest Hemingway"},
-            new Author { Name = "Agatha Christie"},
-            new Author { Name = "Mark Twain"},
-            new Author { Name = "Mary Shelley"},
-            new Author { Name = "Leo Tolstoy"},
-            new Author { Name = "Charles Dickens"},
-            new Author { Name = "Herman Melville"},
-            new Author { Name = "Gabriel García Márquez"},
-            new Author { Name = "Virginia Woolf"},
-            new Author { Name = "Khaled Hosseini"},
-            new Author { Name = "Isabel Allende"},
-            new Author { Name = "Toni Morrison"},
-            new Author { Name = "George R.R. Martin"},
-            new Author { Name = "Dan Brown"}
-        };
+    new Author { Name = "George Orwell", Bio = "English novelist and essayist, known for 1984 and Animal Farm." },
+    new Author { Name = "Jane Austen", Bio = "English novelist famous for works like Pride and Prejudice and Sense and Sensibility." },
+    new Author { Name = "J.K. Rowling", Bio = "British author best known for writing the Harry Potter series." },
+    new Author { Name = "J.R.R. Tolkien", Bio = "English writer, poet, and philologist, author of The Lord of the Rings and The Hobbit." },
+    new Author { Name = "Harper Lee", Bio = "American novelist known for her novel To Kill a Mockingbird." },
+    new Author { Name = "F. Scott Fitzgerald", Bio = "American novelist famous for The Great Gatsby and his depiction of the Jazz Age." },
+    new Author { Name = "Ernest Hemingway", Bio = "American novelist and short story writer, known for works like The Old Man and the Sea." },
+    new Author { Name = "Agatha Christie", Bio = "English writer known for her 66 detective novels and the character Hercule Poirot." },
+    new Author { Name = "Mark Twain", Bio = "American writer, humorist, and lecturer, author of Adventures of Huckleberry Finn." },
+    new Author { Name = "Mary Shelley", Bio = "English novelist best known for writing Frankenstein." },
+    new Author { Name = "Leo Tolstoy", Bio = "Russian writer famous for War and Peace and Anna Karenina." },
+    new Author { Name = "Charles Dickens", Bio = "English writer and social critic, known for A Tale of Two Cities and Great Expectations." },
+    new Author { Name = "Herman Melville", Bio = "American novelist, short story writer, and poet, known for Moby-Dick." },
+    new Author { Name = "Gabriel García Márquez", Bio = "Colombian novelist and Nobel laureate, author of One Hundred Years of Solitude." },
+    new Author { Name = "Virginia Woolf", Bio = "English writer and modernist, known for Mrs Dalloway and To the Lighthouse." },
+    new Author { Name = "Khaled Hosseini", Bio = "Afghan-American novelist known for The Kite Runner and A Thousand Splendid Suns." },
+    new Author { Name = "Isabel Allende", Bio = "Chilean writer known for her novels The House of the Spirits and Eva Luna." },
+    new Author { Name = "Toni Morrison", Bio = "American novelist and Nobel laureate, author of Beloved and Song of Solomon." },
+    new Author { Name = "George R.R. Martin", Bio = "American novelist and short story writer, famous for A Song of Ice and Fire series." },
+    new Author { Name = "Dan Brown", Bio = "American author known for thriller novels like The Da Vinci Code." }
+};
         context.Authors.AddRange(authors);
         context.SaveChanges();
 
@@ -76,19 +76,7 @@ public static class LibrarySeeder
         context.SaveChanges();
 
         // Create BookCopies (distribute across branches)
-        var rnd = new Random();
-        var copies = new List<BookCopy>();
-        foreach(var b in context.Books.ToList())
-        {
-            // give each book copies in 1-3 branches
-            var branchIds = branches.OrderBy(_=>rnd.Next()).Take(rnd.Next(1,4)).Select(x => x.LibraryBranchId);
-            foreach(var id in branchIds)
-            {
-                copies.Add(new BookCopy { BookId = b.BookId, LibraryBranchId = id, Quantity = rnd.Next(1,6) });
-            }
-        }
-        context.BookCopies.AddRange(copies);
-        context.SaveChanges();
+       
 
         // 20 Customers
         var customers = new List<Customer> {

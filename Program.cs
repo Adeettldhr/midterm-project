@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using midterm_project;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,7 +16,15 @@ builder.Services.AddDbContext<LibraryContext>(options =>
 
 builder.Services.AddControllersWithViews();
 
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<LibraryContext>();
+    LibrarySeeder.Seed(db);
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -31,7 +43,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Author}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

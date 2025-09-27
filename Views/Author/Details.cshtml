@@ -1,0 +1,8 @@
+@model Author
+<h2>Author Details</h2>
+
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Birth Date:</strong> @Model.BirthDate.ToShortDateString()</p>
+
+<a asp-action="Edit" asp-route-id="@Model.AuthorId" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

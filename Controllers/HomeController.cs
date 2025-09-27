@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using midterm_project.Models;
+using LibMang.Models;
 
-namespace midterm_project.Controllers;
+namespace LibMang.Controllers;
 
 public class HomeController : Controller
 {

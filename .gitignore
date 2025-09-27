@@ -1,0 +1,32 @@
+# Build results
+bin/
+obj/
+
+# SQLite local databases
+*.db
+*.db-shm
+*.db-wal
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Environment & secrets
+*.env
+appsettings.Development.json
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio
+.vs/
+
+# OS-generated files
+.DS_Store
+Thumbs.db

@@ -11,15 +11,15 @@ namespace midterm_project.Models
 
         [Required, StringLength(100)]
         [Display(Name = "Full Name")]
-        public string FullName { get; set; }
+        public required string FullName { get; set; }
 
         [Required, EmailAddress]
         [Display(Name = "Email Address")]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required, StringLength(15)]
         [Display(Name = "Phone Number")]
-        public string Phone { get; set; }
+        public required string Phone { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Hired Date")]

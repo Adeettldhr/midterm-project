@@ -123,7 +123,10 @@ public class ReviewController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var review = await _context.Reviews.FindAsync(id);
-        _context.Reviews.Remove(review);
+        if (review != null)
+        {
+            _context.Reviews.Remove(review);
+        }
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }

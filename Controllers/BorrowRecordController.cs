@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using midterm_project.Models;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 public class BorrowRecordController : Controller
 {
@@ -124,7 +123,10 @@ public class BorrowRecordController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var record = await _context.BorrowRecords.FindAsync(id);
-        _context.BorrowRecords.Remove(record);
+        if (record != null)
+        {
+            _context.BorrowRecords.Remove(record);
+        }
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }

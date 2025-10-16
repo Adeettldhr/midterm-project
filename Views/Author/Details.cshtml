@@ -2,12 +2,10 @@
 
 <h2>Author Details</h2>
 
-<table class="table table-bordered">
-    <tr><th>Name</th><td>@Model.Name</td></tr>
-    <tr><th>Birth Date</th><td>@Model.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A"</td></tr>
-    <tr><th>Biography</th><td>@Model.Bio ?? "N/A"</td></tr>
-    <tr><th>Books Written</th><td>@(Model.Books?.Count ?? 0)</td></tr>
-</table>
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Birth Date:</strong> @(Model.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A")</p>
+<p><strong>Bio:</strong> @(Model.Bio ?? "No biography available")</p>
+<p><strong>Number of Books:</strong> @(Model.Books?.Count() ?? 0)</p>
 
 <a asp-action="Edit" asp-route-id="@Model.AuthorId" class="btn btn-primary">Edit</a>
 <a asp-action="Index" class="btn btn-secondary">Back</a>

@@ -23,7 +23,7 @@
                 <td>@book.Title</td>
                 <td>@book.ISBN</td>
                 <td>@book.Genre</td>
-                <td>@book.Author?.Name ?? "N/A"</td>
+                <td>@book.Author?.Name</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@book.BookId" class="btn btn-info btn-sm">Details</a>
                     <a asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-primary btn-sm">Edit</a>

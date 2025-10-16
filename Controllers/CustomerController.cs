@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using midterm_project.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace midterm_project.Controllers
 {
@@ -91,7 +89,10 @@ namespace midterm_project.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customer);
+            if (customer != null)
+            {
+                _context.Customers.Remove(customer);
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using midterm_project.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
 public class CategoryController : Controller
 {
@@ -105,7 +103,10 @@ public class CategoryController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var category = await _context.Categories.FindAsync(id);
-        _context.Categories.Remove(category);
+        if (category != null)
+        {
+            _context.Categories.Remove(category);
+        }
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }

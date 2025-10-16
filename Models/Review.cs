@@ -26,7 +26,7 @@ namespace midterm_project.Models
         [Required]
         [StringLength(500)]
         [Display(Name = "Review Text")]
-        public string Comment { get; set; }
+        public required string Comment { get; set; }
 
         [Range(1, 5)]
         [Display(Name = "Rating (1–5)")]

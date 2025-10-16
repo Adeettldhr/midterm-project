@@ -6,7 +6,7 @@
     <tr><th>Title</th><td>@Model.Title</td></tr>
     <tr><th>ISBN</th><td>@Model.ISBN</td></tr>
     <tr><th>Genre</th><td>@Model.Genre</td></tr>
-    <tr><th>Author</th><td>@Model.Author?.Name ?? "N/A"</td></tr>
+    <tr><th>Author</th><td>@Model.Author?.Name</td></tr>
 </table>
 
 <a asp-action="Edit" asp-route-id="@Model.BookId" class="btn btn-primary">Edit</a>

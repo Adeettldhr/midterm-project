@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using midterm_project.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace midterm_project.Controllers
 {
@@ -13,10 +11,12 @@ namespace midterm_project.Controllers
 
         // GET: Author
         public async Task<IActionResult> Index()
-        {
-            var authors = await _context.Authors.ToListAsync();
-            return View(authors);
-        }
+    {
+        var authors = await _context.Authors
+                                    .Include(a => a.Books) 
+                                    .ToListAsync();
+        return View(authors);
+    }
 
         // GET: Author/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -96,7 +96,10 @@ namespace midterm_project.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var author = await _context.Authors.FindAsync(id);
-            _context.Authors.Remove(author);
+            if (author != null)
+            {
+                _context.Authors.Remove(author);
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

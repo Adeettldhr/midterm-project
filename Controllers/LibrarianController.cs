@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using midterm_project.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
 public class LibrarianController : Controller
 {
@@ -117,7 +115,10 @@ public class LibrarianController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var librarian = await _context.Librarians.FindAsync(id);
-        _context.Librarians.Remove(librarian);
+        if (librarian != null)
+        {
+            _context.Librarians.Remove(librarian);
+        }
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }

@@ -14,11 +14,8 @@ namespace midterm_project.Models
         [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
 
-                // New property
         public string? Bio { get; set; }
 
-
-        // Navigation property
         public ICollection<Book>? Books { get; set; }
     }
 }

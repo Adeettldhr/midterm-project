@@ -1,0 +1,11 @@
+@model midterm_project.Models.Author
+
+<h2>Author Details</h2>
+
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Birth Date:</strong> @(Model.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A")</p>
+<p><strong>Bio:</strong> @(Model.Bio ?? "No biography available")</p>
+<p><strong>Number of Books:</strong> @(Model.Books?.Count() ?? 0)</p>
+
+<a asp-action="Edit" asp-route-id="@Model.AuthorId" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

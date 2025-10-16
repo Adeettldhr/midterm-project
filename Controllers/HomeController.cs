@@ -1,31 +1,30 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using midterm_project.Models;
-
-namespace midterm_project.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly LibraryContext _context;
+    public HomeController(LibraryContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
-    }
+var model = new HomeViewModel
+{
+    Books = await _context.Books.Include(b => b.Author).ToListAsync(),
+    Authors = await _context.Authors.ToListAsync(),
+    Customers = await _context.Customers.ToListAsync(),
+    LibraryBranches = await _context.LibraryBranches.ToListAsync(),
+    Categories = await _context.Categories.ToListAsync(),
+    Librarians = await _context.Librarians.ToListAsync(),
+    BorrowRecords = await _context.BorrowRecords.ToListAsync(),
+    Reviews = await _context.Reviews.ToListAsync()
+};
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+return View(model);
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

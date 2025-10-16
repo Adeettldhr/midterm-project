@@ -1,0 +1,22 @@
+@model midterm_project.Models.Customer
+
+<h2>Delete Customer</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete <strong>@Model.FullName</strong>?
+</div>
+
+<table class="table table-bordered">
+    <tr><th>Full Name</th><td>@Model.FullName</td></tr>
+    <tr><th>Email</th><td>@Model.Email</td></tr>
+    <tr><th>Phone</th><td>@Model.Phone</td></tr>
+    <tr><th>Address</th><td>@Model.Address</td></tr>
+    <tr><th>Registered On</th><td>@Model.RegisteredOn.ToString("yyyy-MM-dd")</td></tr>
+</table>
+
+<form asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="CustomerId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

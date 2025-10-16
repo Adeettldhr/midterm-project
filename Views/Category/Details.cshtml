@@ -1,0 +1,28 @@
+@model midterm_project.Models.Category
+
+<h2 class="mb-4">Category Details</h2>
+
+<div class="card shadow-sm p-3 mb-3 bg-light rounded">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Name</h4>
+        <p><strong>Description:</strong> @Model.Description</p>
+    </div>
+</div>
+
+@if (Model.Books != null && Model.Books.Any())
+{
+    <h5>Books in this Category:</h5>
+    <ul class="list-group mb-3">
+        @foreach (var book in Model.Books)
+        {
+            <li class="list-group-item">@book.Title</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No books are linked to this category yet.</p>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-warning me-2">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

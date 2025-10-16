@@ -1,0 +1,23 @@
+@model midterm_project.Models.Author
+
+<h2>Delete Author</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete <strong>@Model.Name</strong>?
+</div>
+
+<table class="table table-bordered">
+    <tr><th>Name</th><td>@Model.Name</td></tr>
+    <tr><th>Birth Date</th><td>@Model.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A"</td></tr>
+    <tr><th>Bio</th><td>@Model.Bio ?? "N/A"</td></tr>
+    <tr><th>Books Written</th><td>@(Model.Books?.Count ?? 0)</td></tr>
+</table>
+
+<form asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="AuthorId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>
+
+

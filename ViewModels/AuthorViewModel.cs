@@ -1,4 +1,4 @@
-  namespace LibraryManagement.ViewModels
+  namespace midterm_project.ViewModels
   {
   	public class AuthorViewModel
   	{

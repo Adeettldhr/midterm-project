@@ -1,17 +1,25 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-public class Customer
+namespace midterm_project.Models
 {
-    public int CustomerId { get; set; }
+    public class Customer
+    {
+        public int CustomerId { get; set; }
 
-    [Required, StringLength(120)]
-    public string FullName { get; set; }
+        [Required(ErrorMessage = "Full name is required")]
+        public string FullName { get; set; } = string.Empty;
 
-    [EmailAddress]
-    public string Email { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        public string Email { get; set; } = string.Empty;
 
-    public string Phone { get; set; }
+        [Phone(ErrorMessage = "Invalid phone number")]
+        public string? Phone { get; set; }  // renamed to Phone
 
-    public DateTime RegisteredOn { get; set; }
+        public string? Address { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime RegisteredOn { get; set; } = DateTime.Now;
+    }
 }

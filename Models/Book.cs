@@ -1,15 +1,19 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+namespace midterm_project.Models
+{
 
 public class Book
 {
     public int BookId { get; set; }
 
-    [Required, StringLength(250)]
-    public string Title { get; set; }
+           [Required(ErrorMessage = "Title is required")]
 
-    public int? AuthorId { get; set; }
-    public Author Author { get; set; }
+    public string Title { get; set; } = string.Empty;
+
+        public int? AuthorId { get; set; }
+
+        // Navigation property
+        public Author? Author { get; set; }
 
     public string ISBN { get; set; }
 
@@ -19,4 +23,5 @@ public class Book
 
     // You may track availability through BookCopy (see below)
 
+}
 }

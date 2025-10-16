@@ -1,8 +1,13 @@
-@model Author
+@model midterm_project.Models.Author
+
 <h2>Author Details</h2>
 
-<p><strong>Name:</strong> @Model.Name</p>
-
+<table class="table table-bordered">
+    <tr><th>Name</th><td>@Model.Name</td></tr>
+    <tr><th>Birth Date</th><td>@Model.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A"</td></tr>
+    <tr><th>Biography</th><td>@Model.Bio ?? "N/A"</td></tr>
+    <tr><th>Books Written</th><td>@(Model.Books?.Count ?? 0)</td></tr>
+</table>
 
 <a asp-action="Edit" asp-route-id="@Model.AuthorId" class="btn btn-primary">Edit</a>
 <a asp-action="Index" class="btn btn-secondary">Back</a>

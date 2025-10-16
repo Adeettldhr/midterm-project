@@ -1,0 +1,14 @@
+@model midterm_project.Models.BorrowRecord
+
+<h2>Borrow Record Details</h2>
+
+<div class="card p-3 mb-3">
+    <p><strong>Book:</strong> @Model.Book?.Title</p>
+    <p><strong>Customer:</strong> @Model.Customer?.FullName</p>
+    <p><strong>Borrow Date:</strong> @Model.BorrowDate.ToString("yyyy-MM-dd")</p>
+    <p><strong>Return Date:</strong> @Model.ReturnDate?.ToString("yyyy-MM-dd")</p>
+    <p><strong>Returned:</strong> @(Model.IsReturned ? "Yes" : "No")</p>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.BorrowRecordId" class="btn btn-warning me-2">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

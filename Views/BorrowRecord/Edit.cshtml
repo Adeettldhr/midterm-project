@@ -1,0 +1,9 @@
+@model midterm_project.Models.BorrowRecord
+
+<h2>Edit Borrow Record</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="BorrowRecordId" />
+    @* Reuse same fields as Create *@
+    <partial name="Create" />
+</form>

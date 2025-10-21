@@ -14,7 +14,7 @@ namespace midterm_project.Models
         public string Email { get; set; } = string.Empty;
 
         [Phone(ErrorMessage = "Invalid phone number")]
-        public string? Phone { get; set; }  // renamed to Phone
+        public string? Phone { get; set; }  
 
         public string? Address { get; set; }
 

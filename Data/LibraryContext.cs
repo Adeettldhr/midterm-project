@@ -22,13 +22,12 @@ public DbSet<Review> Reviews { get; set; }
     {
         base.OnModelCreating(modelBuilder);
 
-        // sample: composite or cascade rules if needed
         modelBuilder.Entity<Book>()
             .HasOne(b => b.Author)
             .WithMany(a => a.Books)
             .HasForeignKey(b => b.AuthorId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        // Optionally seed a small subset here — we'll seed using a seeder below with many records.
+
     }
 }

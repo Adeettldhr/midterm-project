@@ -37,8 +37,14 @@ The project is organized into several directories:
 
 ### Installation Steps
 1. Clone the repository:
-     ```bash
-     git clone https://github.com/adeettuldhr5/midterm_project.git
+     git clone https://github.com/Adeettldhr/midterm-project
      cd midterm_project
 
+2. Create a new database:
+        dotnet ef database update
+
+3. Run the application:
+        dotnet run
+
+4. Open your web browser and navigate to `http://localhost:5204` to access the Library Management System.
 

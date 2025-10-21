@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the controller.
 builder.Services.AddControllersWithViews();
 
 // Connection string
@@ -18,6 +18,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+//seedind the database
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<LibraryContext>();
@@ -46,3 +47,5 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+

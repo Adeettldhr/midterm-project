@@ -13,8 +13,7 @@ namespace midterm_project.ViewModels
 
         [Display(Name = "Description")]
         public string? Description { get; set; }
-
-        // Optional: Number of books in this category
+        
         [Display(Name = "Number of Books")]
         public int BookCount { get; set; }
     }

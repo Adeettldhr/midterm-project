@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using midterm_project.Models;
-
+using midterm_project.Exceptions; 
 
 namespace midterm_project.Controllers
 {
@@ -14,17 +14,34 @@ namespace midterm_project.Controllers
         // GET: Book
         public async Task<IActionResult> Index()
         {
-            var books = await _context.Books.Include(b => b.Author).ToListAsync();
-            return View(books);
+            try
+            {
+                var books = await _context.Books.Include(b => b.Author).ToListAsync();
+
+                // (Optional: For viva demonstration, uncomment below to simulate DB error)
+                // throw new DatabaseConnectionException("Simulated database connection failure.");
+
+                return View(books);
+            }
+            catch (DbUpdateException ex)
+            {
+                // Wrap EF errors in a custom exception for global handler
+                throw new DatabaseConnectionException($"Database operation failed: {ex.Message}");
+            }
         }
 
         // GET: Book/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
+
             var book = await _context.Books.Include(b => b.Author)
                                            .FirstOrDefaultAsync(b => b.BookId == id);
-            if (book == null) return NotFound();
+
+            if (book == null)
+                throw new BookNotFoundException($"Book with ID {id} was not found in the library.");
+
             return View(book);
         }
 
@@ -35,7 +52,7 @@ namespace midterm_project.Controllers
             return View();
         }
 
-        // POST: Book/Create
+        //  POST: Book/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Book book)
@@ -46,6 +63,7 @@ namespace midterm_project.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["Authors"] = new SelectList(_context.Authors, "AuthorId", "Name", book.AuthorId);
             return View(book);
         }
@@ -53,9 +71,13 @@ namespace midterm_project.Controllers
         // GET: Book/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
+
             var book = await _context.Books.FindAsync(id);
-            if (book == null) return NotFound();
+            if (book == null)
+                throw new BookNotFoundException($"Book with ID {id} was not found in the library.");
+
             ViewData["Authors"] = new SelectList(_context.Authors, "AuthorId", "Name", book.AuthorId);
             return View(book);
         }
@@ -65,7 +87,9 @@ namespace midterm_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Book book)
         {
-            if (id != book.BookId) return NotFound();
+            if (id != book.BookId)
+                return NotFound();
+
             if (ModelState.IsValid)
             {
                 try
@@ -75,11 +99,18 @@ namespace midterm_project.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Books.Any(e => e.BookId == id)) return NotFound();
-                    else throw;
+                    if (!_context.Books.Any(e => e.BookId == id))
+                        throw new BookNotFoundException($"Book with ID {id} was not found during update.");
+                    else
+                        throw; // Let global handler catch any other exceptions
+                }
+                catch (DbUpdateException ex)
+                {
+                    throw new DatabaseConnectionException($"Database update failed: {ex.Message}");
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["Authors"] = new SelectList(_context.Authors, "AuthorId", "Name", book.AuthorId);
             return View(book);
         }
@@ -87,10 +118,15 @@ namespace midterm_project.Controllers
         // GET: Book/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
+
             var book = await _context.Books.Include(b => b.Author)
                                            .FirstOrDefaultAsync(b => b.BookId == id);
-            if (book == null) return NotFound();
+
+            if (book == null)
+                throw new BookNotFoundException($"Book with ID {id} was not found in the library.");
+
             return View(book);
         }
 
@@ -100,11 +136,19 @@ namespace midterm_project.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var book = await _context.Books.FindAsync(id);
-            if (book != null)
+            if (book == null)
+                throw new BookNotFoundException($"Book with ID {id} was not found during deletion.");
+
+            try
             {
                 _context.Books.Remove(book);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
+            catch (DbUpdateException ex)
+            {
+                throw new DatabaseConnectionException($"Error while deleting book: {ex.Message}");
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }
